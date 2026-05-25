@@ -14,12 +14,10 @@ public class AlunoController : Controller
 
         return View();
     }
-
     public IActionResult Detalhes(int id)
     {
-         ViewBag.AlunoId = id;
-        
-        return View(index.cshtml);
+    ViewBag.AlunoId = id;
+    return View(); // <-- Sem nada dentro dos parênteses
     }
 
     public IActionResult Privacy()

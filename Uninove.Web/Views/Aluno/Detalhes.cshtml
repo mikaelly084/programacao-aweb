@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Detalhes do Aluno";
+}
+
+<div class="container mt-4">
+    <h2>Detalhes do Aluno</h2>
+    <hr />
+
+    <div class="card col-md-6">
+        <div class="card-body">
+            <h5 class="card-title">Informações do Registro</h5>
+            <p class="card-text">
+                <strong>ID do Aluno consultado:</strong> @ViewBag.AlunoId
+            </p>
+            
+            <a href="/Aluno" class="btn btn-secondary btn-sm">Voltar para a Lista</a>
+        </div>
+    </div>
+</div>
