@@ -25,7 +25,7 @@
             {
                 @foreach (var item in Model)
                 {
-                    // Mantém a regra do professor: Colore de verde se o preço for menor que R$ 100
+                
                     string classeCor = item.Preco < 100 ? "text-success font-weight-bold" : "";
 
                     <tr class="@classeCor">

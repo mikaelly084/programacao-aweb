@@ -1,11 +1,9 @@
 @{
     ViewData["Title"] = "Boletim Escolar";
 
-    // Recuperando os dados enviados pela Controller
     var listaDisciplinas = ViewBag.Disciplinas as List<string>;
     var listaNotas = ViewBag.Notas as List<double>;
 
-    // Variável para acumular a soma das notas para a média geral
     double somaNotas = 0;
 }
 
@@ -27,9 +25,8 @@
                 for (int i = 0; i < listaDisciplinas.Count; i++)
                 {
                     double notaAtual = listaNotas[i];
-                    somaNotas += notaAtual; // Somando para calcular a média depois
-
-                    // Passo 6: Use switch expression para classificar: A (>=9), B (>=7), C (>=5), D (<5)
+                    somaNotas += notaAtual; 
+                    
                     string classificacao = notaAtual switch
                     {
                         >= 9.0 => "A",
