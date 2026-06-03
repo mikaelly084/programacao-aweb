@@ -1,0 +1,49 @@
+@model Uninove.Web.Models.Produto
+
+@{
+    ViewData["Title"] = "Cadastrar Produto";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">📝 Cadastrar Novo Produto</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Cadastrar" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label font-weight-bold">Nome do Produto</label>
+                    <input asp-for="Nome" class="form-control" placeholder="Ex: Notebook" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Descricao" class="form-label">Descrição</label>
+                    <textarea asp-for="Descricao" class="form-control" rows="2" placeholder="Descrição do produto"></textarea>
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Preco" class="form-label font-weight-bold">Preço (R$)</label>
+                        <input asp-for="Preco" class="form-control" type="text" placeholder="0.00" />
+                        <span asp-validation-for="Preco" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Estoque" class="form-label font-weight-bold">Estoque</label>
+                        <input asp-for="Estoque" class="form-control" type="number" placeholder="0" />
+                        <span asp-validation-for="Estoque" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Voltar para Lista</a>
+                    <button type="submit" class="btn btn-primary px-4">Salvar no Banco</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

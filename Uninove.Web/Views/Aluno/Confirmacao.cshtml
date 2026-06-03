@@ -1,0 +1,28 @@
+@model Uninove.Web.Models.Aluno
+
+@{
+    ViewData["Title"] = "Confirmação de Cadastro";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card border-success shadow">
+        <div class="card-header bg-success text-white text-center">
+            <h3>✅ Aluno Cadastrado com Sucesso!</h3>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-center mb-4">Dados do Aluno Recebidos no Servidor</h5>
+            
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
+                <li class="list-group-item"><strong>E-mail:</strong> @Model.Email</li>
+                <li class="list-group-item"><strong>RA:</strong> @Model.RA</li>
+                <li class="list-group-item"><strong>Curso:</strong> @Model.Curso</li>
+                <li class="list-group-item"><strong>Data de Nascimento:</strong> @Model.DataNascimento.ToString("dd/MM/yyyy")</li>
+            </ul>
+
+            <div class="d-grid">
+                <a asp-action="Cadastrar" class="btn btn-success">Cadastrar outro Aluno</a>
+            </div>
+        </div>
+    </div>
+</div>

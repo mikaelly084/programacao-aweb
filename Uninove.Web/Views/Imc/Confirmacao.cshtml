@@ -1,0 +1,46 @@
+@model Uninove.Web.Models.Imc
+
+@{
+    ViewData["Title"] = "Resultado do IMC";
+
+    string classeCor = "bg-success text-white"; // Padrão: Verde (Peso Normal)
+    string classeBorda = "border-success";
+
+    if (Model.Classificacao == "Abaixo do peso")
+    {
+        classeCor = "bg-warning text-dark";   // Amarelo
+        classeBorda = "border-warning";
+    }
+    else if (Model.Classificacao == "Sobrepeso" || Model.Classificacao == "Obesidade")
+    {
+        classeCor = "bg-danger text-white";    // Vermelho
+        classeBorda = "border-danger";
+    }
+}
+
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card @classeBorda shadow">
+        
+        <div class="card-header @classeCor text-center">
+            <h3 class="mb-0">⚖️ Resultado do IMC</h3>
+        </div>
+        
+        <div class="card-body text-center">
+            <p class="fs-5">Os dados foram processados com sucesso no servidor:</p>
+            <hr />
+            
+            <div class="mb-3">
+                <strong>Peso informado:</strong> @Model.Peso kg <br />
+                <strong>Altura informada:</strong> @Model.Altura m
+            </div>
+
+            <div class="alert @classeCor d-inline-block px-5">
+                <h4 class="alert-heading font-weight-bold mb-1">IMC: @Model.Resultado.ToString("F2")</h4>
+                <p class="mb-0 fs-5"><strong>@Model.Classificacao</strong></p>
+            </div>
+
+            <hr />
+            <a asp-action="Cadastrar" class="btn btn-outline-secondary">Calcular outro IMC</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@model Uninove.Web.Models.Imc
+
+@{
+    ViewData["Title"] = "Formulário de IMC";
+}
+
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="mb-0">⚖️ Formulário de Cálculo de IMC</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Cadastrar" method="post">
+                <div class="mb-3">
+                    <label asp-for="Peso" class="form-label font-weight-bold">Digite seu Peso (kg)</label>
+                    <input asp-for="Peso" class="form-control" type="text" placeholder="Ex: 78.5" />
+                    <span asp-validation-for="Peso" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Altura" class="form-label font-weight-bold">Digite sua Altura (m)</label>
+                    <input asp-for="Altura" class="form-control" type="text" placeholder="Ex: 1.75" />
+                    <span asp-validation-for="Altura" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-warning w-100 font-weight-bold">Calcular IMC</button>
+            </form>
+        </div>
+    </div>
+</div>

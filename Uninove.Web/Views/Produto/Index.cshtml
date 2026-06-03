@@ -1,0 +1,52 @@
+@model IEnumerable<Uninove.Web.Models.Produto>
+
+@{
+    ViewData["Title"] = "Catálogo de Produtos";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Catálogo de Produtos</h2>
+        <a href="/Produto/Cadastrar" class="btn btn-primary">➕ Novo Produto</a>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    // Mantém a regra do professor: Colore de verde se o preço for menor que R$ 100
+                    string classeCor = item.Preco < 100 ? "text-success font-weight-bold" : "";
+
+                    <tr class="@classeCor">
+                        <td>@item.Id</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Descricao</td>
+                        <td>R$ @item.Preco.ToString("F2")</td>
+                        <td>@item.Estoque un.</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Nenhum produto encontrado no banco de dados.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="alert alert-info mt-3">
+        <strong>Total: @(Model?.Count() ?? 0) produtos</strong>
+    </div>
+</div>

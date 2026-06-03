@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Boletim Escolar";
+
+    // Recuperando os dados enviados pela Controller
+    var listaDisciplinas = ViewBag.Disciplinas as List<string>;
+    var listaNotas = ViewBag.Notas as List<double>;
+
+    // Variável para acumular a soma das notas para a média geral
+    double somaNotas = 0;
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Boletim de Notas</h2>
+
+    <table class="table table-bordered table-striped text-center">
+        <thead class="thead-dark bg-dark text-white">
+            <tr>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Classificação</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (listaDisciplinas != null && listaNotas != null)
+            {
+                for (int i = 0; i < listaDisciplinas.Count; i++)
+                {
+                    double notaAtual = listaNotas[i];
+                    somaNotas += notaAtual; // Somando para calcular a média depois
+
+                    // Passo 6: Use switch expression para classificar: A (>=9), B (>=7), C (>=5), D (<5)
+                    string classificacao = notaAtual switch
+                    {
+                        >= 9.0 => "A",
+                        >= 7.0 => "B",
+                        >= 5.0 => "C",
+                        _      => "D"
+                    };
+
+                    <tr>
+                        <td>@listaDisciplinas[i]</td>
+                        <td>@notaAtual.ToString("F1")</td>
+                        <td><strong>@classificacao</strong></td>
+                        <td>
+                            @if (notaAtual >= 6.0)
+                            {
+                                <span style="color: green; font-weight: bold;">Aprovado</span>
+                            }
+                            else
+                            {
+                                <span style="color: red; font-weight: bold;">Reprovado</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-muted">Nenhuma nota encontrada.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        double mediaGeral = 0;
+        if (listaDisciplinas != null && listaDisciplinas.Count > 0)
+        {
+            mediaGeral = somaNotas / listaDisciplinas.Count;
+        }
+    }
+
+    <div class="card mt-3">
+        <div class="card-body bg-light text-right">
+            <h4>Média Geral: 
+                <span style="color: @(mediaGeral >= 6.0 ? "green" : "red"); font-weight: bold;">
+                    @mediaGeral.ToString("F2")
+                </span>
+            </h4>
+        </div>
+    </div>
+</div>
