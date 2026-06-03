@@ -29,6 +29,35 @@ public class AlunoController : Controller
         return View();
     }
 
+    
+    public IActionResult Boletim()
+    {
+        
+        List<string> disciplinas = new List<string>
+        {
+            "Programação Web",
+            "Banco de Dados",
+            "Estrutura de Dados",
+            "Design de Interface",
+            "Arquitetura de Software"
+        };
+
+        List<double> notas = new List<double>
+        {
+            9.5, // Nota de Prog Web
+            6.8, // Nota de BD
+            4.5, // Nota de Estrutura
+            8.0, // Nota de Design
+            5.5  // Nota de Arq
+        };
+
+    
+        ViewBag.Disciplinas = disciplinas;
+        ViewBag.Notas = notas;
+
+        return View();
+    } 
+
     // Rota: /Aluno/Cadastrar
     [HttpGet]
     public IActionResult Cadastrar()
