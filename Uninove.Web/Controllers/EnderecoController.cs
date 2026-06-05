@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-using Uninove.Web.Models; // Garanta que essa linha está aqui
+using Uninove.Web.Models;
 
 namespace Uninove.Web.Controllers
 {
@@ -12,7 +12,7 @@ namespace Uninove.Web.Controllers
         }
 
         [HttpPost]
-        // 1. Alterado aqui para 'Endereco'
+        
         public IActionResult ProcessarEndereco([FromBody] Endereco model) 
         {
             if (model == null)
@@ -33,8 +33,7 @@ namespace Uninove.Web.Controllers
             }
 
             var json = TempData["EnderecoData"].ToString();
-            
-            // 2. Alterado aqui também para 'Endereco'
+          
             var model = JsonSerializer.Deserialize<Endereco>(json); 
 
             return View(model);

@@ -29,7 +29,7 @@ public class AlunoController : Controller
         return View();
     }
 
-    
+    // Rota: Aluno/Boletim
     public IActionResult Boletim()
     {
         

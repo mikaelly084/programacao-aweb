@@ -4,9 +4,6 @@ namespace Uninove.Web.Models
 {
     public class Endereco
     {
-        // O C# espera o nome exato da propriedade para fazer o Model Binding.
-        // Se no JavaScript você usou letras maiúsculas ou minúsculas,
-        // use o [JsonPropertyName] para garantir que o .NET faça o mapeamento correto.
 
         [JsonPropertyName("cep")]
         public string Cep { get; set; }
@@ -18,12 +15,12 @@ namespace Uninove.Web.Models
         public string Bairro { get; set; }
 
         [JsonPropertyName("localidade")]
-        public string Localidade { get; set; } // Cidade
+        public string Localidade { get; set; }
 
         [JsonPropertyName("uf")]
         public string Uf { get; set; }
 
         [JsonPropertyName("numero")]
-        public string Numero { get; set; } // Campo preenchido manualmente pelo usuário
+        public string Numero { get; set; } 
     }
 }
