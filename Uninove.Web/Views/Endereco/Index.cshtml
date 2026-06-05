@@ -1,0 +1,122 @@
+@model Uninove.Web.Models.Endereco
+
+@{
+    ViewData["Title"] = "Buscar Endereço";
+}
+
+<div class="container mt-4">
+    <h2>Buscar Endereço</h2>
+    <hr />
+
+    <form id="formEndereco">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label">CEP</label>
+                <input type="text" id="txtCep" class="form-control" placeholder="Digite o CEP e saia do campo..." />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Logradouro</label>
+                <input type="text" id="txtLogradouro" class="form-control" readonly />
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Bairro</label>
+                <input type="text" id="txtBairro" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label">Cidade (Localidade)</label>
+                <input type="text" id="txtCidade" class="form-control" readonly />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label">UF</label>
+                <input type="text" id="txtUf" class="form-control" readonly />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Número (Preencha manualmente)</label>
+                <input type="text" id="txtNumero" class="form-control" />
+            </div>
+        </div>
+
+        <button type="button" id="btnEnviar" class="btn btn-primary">Enviar para o Servidor</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            
+            // 1. Busca automática ao tirar o foco do campo CEP
+            $('#txtCep').blur(function () {
+                var cep = $(this).val().replace(/\D/g, '');
+
+                if (cep !== "") {
+                    var validaCep = /^[0-9]{8}$/;
+
+                    if(validaCep.test(cep)) {
+                        $("#txtLogradouro").val("...");
+                        $("#txtBairro").val("...");
+                        $("#txtCidade").val("...");
+                        $("#txtUf").val("...");
+
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", function (dados) {
+                            if (!("erro" in dados)) {
+                                $("#txtLogradouro").val(dados.logradouro);
+                                $("#txtBairro").val(dados.bairro);
+                                $("#txtCidade").val(dados.localidade);
+                                $("#txtUf").val(dados.uf);
+                            } else {
+                                alert("CEP não encontrado.");
+                                limparFormulario();
+                            }
+                        });
+                    } else {
+                        alert("Formato de CEP inválido.");
+                        limparFormulario();
+                    }
+                }
+            });
+
+            // 2. Envio dos dados via AJAX para o Controller
+            $('#btnEnviar').click(function () {
+                var dadosEndereco = {
+                    Cep: $('#txtCep').val(),
+                    Logradouro: $('#txtLogradouro').val(),
+                    Bairro: $('#txtBairro').val(),
+                    Localidade: $('#txtCidade').val(),
+                    Uf: $('#txtUf').val(),
+                    Numero: $('#txtNumero').val()
+                };
+
+                $.ajax({
+                    url: '@Url.Action("ProcessarEndereco", "Endereco")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dadosEndereco),
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = response.redirectUrl;
+                        }
+                    },
+                    error: function () {
+                        alert("Erro ao enviar dados para o servidor.");
+                    }
+                });
+            });
+
+            function limparFormulario() {
+                $('#txtCep').val('');
+                $("#txtLogradouro").val('');
+                $("#txtBairro").val('');
+                $("#txtCidade").val('');
+                $("#txtUf").val('');
+                $("#txtNumero").val('');
+            }
+        });
+    </script>
+}

@@ -1,0 +1,50 @@
+@model Uninove.Web.Models.Endereco
+
+@{
+    ViewData["Title"] = "Dados Confirmados";
+}
+
+<div class="container mt-4">
+    <div class="card border-success">
+        <div class="card-header bg-success text-white">
+            <h3>Dados do Endereço Cadastrado (Somente Leitura)</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Os dados abaixo combinam a resposta do ViaCEP e o incremento feito via formulário.</p>
+            <hr />
+
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label class="fw-bold">CEP:</label>
+                    <input type="text" class="form-control-plaintext" value="@Model.Cep" readonly />
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold">Logradouro:</label>
+                    <input type="text" class="form-control-plaintext" value="@Model.Logradouro" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label class="fw-bold">Número:</label>
+                    <input type="text" class="form-control-plaintext text-danger fw-bold" value="@Model.Numero" readonly />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="fw-bold">Bairro:</label>
+                    <input type="text" class="form-control-plaintext" value="@Model.Bairro" readonly />
+                </div>
+                <div class="col-md-5">
+                    <label class="fw-bold">Cidade:</label>
+                    <input type="text" class="form-control-plaintext" value="@Model.Localidade" readonly />
+                </div>
+                <div class="col-md-3">
+                    <label class="fw-bold">UF:</label>
+                    <input type="text" class="form-control-plaintext" value="@Model.Uf" readonly />
+                </div>
+            </div>
+            
+            <hr />
+            <a asp-action="Index" class="btn btn-secondary">Realizar Nova Busca</a>
+        </div>
+    </div>
+</div>
